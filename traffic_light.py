@@ -1,5 +1,6 @@
 from enum import IntEnum
 from typing import Optional
+from traffic_state import TrafficState
 
 from PyQt6.QtCore import QSize, Qt
 from PyQt6.QtGui import QColor
@@ -24,11 +25,15 @@ class Circle(QLabel):
         style = f"background-color: rgb({color.red()}, {color.green()}, {color.blue()});"
         self.setStyleSheet(f"{self.styleSheet()}{style}")
 
-    def update_color(self, color: QColor | Qt.GlobalColor) -> None:
+    def clear_color(self) -> None:
         style = self.styleSheet()
-        style.find('background-color')
-        split = style.split('background-color')
-        self.setStyleSheet(split[0])
+        if 'background-color' in style:
+            style.find('background-color')
+            split = style.split('background-color')
+            self.setStyleSheet(split[0])
+
+    def update_color(self, color: QColor | Qt.GlobalColor) -> None:
+        self.clear_color()
         self.set_color(color)
 
 
@@ -36,7 +41,6 @@ class CircleIndicator(Circle):
     def __init__(self, parent: Optional[QWidget] = None,
                  radius: int = 50) -> None:
         super().__init__(parent, radius)
-        self.set_black()
 
     def set_red(self) -> None:
         self.update_color(Qt.GlobalColor.red)
@@ -88,3 +92,6 @@ class TrafficLight(QWidget):
             self.state = TrafficLightState.GREEN
         elif self.state == TrafficLightState.GREEN:
             self.state = TrafficLightState.RED
+
+    def update(self, state: TrafficState) -> None:
+        pass

@@ -1,18 +1,8 @@
-from enum import IntEnum
-
 from PyQt6.QtCore import QSize
 from PyQt6.QtWidgets import (QApplication, QLabel, QMainWindow)
 
-from traffic_light import TrafficLight, CircleIndicator
-
-
-class TrafficState(IntEnum):
-    NORTH_SOUTH_LEFT = 0
-    NORTH_SOUTH_RIGHT = 1
-    NORTH_SOUTH_STRAIGHT = 2
-    EAST_WEST_LEFT = 3
-    EAST_WEST_RIGHT = 4
-    EAST_WEST_STRAIGHT = 5
+from traffic_light import TrafficLight
+from traffic_state import TrafficState
 
 
 class Window(QMainWindow):
