@@ -1,4 +1,5 @@
-from PyQt6.QtWidgets import QApplication, QLabel
+from PyQt6.QtCore import QSize
+from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel
 
 from enum import IntEnum
 
@@ -12,7 +13,21 @@ class TrafficState(IntEnum):
     EAST_WEST_STRAIGHT = 5
 
 
+class Window(QMainWindow):
+    def __init__(self):
+        super().__init__()
+
+        self.setWindowTitle("CSDS 344 Traffic Simulation")
+        self.setFixedSize(QSize(600, 600))
+
+        self.label = QLabel('Hello World!', parent=self)
+
+        self.label.move(0, 0)
+
+
 app = QApplication([])
-label = QLabel('Hello World!')
-label.show()
+
+window = Window()
+window.show()
+
 app.exec()
