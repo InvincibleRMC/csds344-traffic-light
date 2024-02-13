@@ -77,5 +77,14 @@ class TrafficLight(QWidget):
         layout.addWidget(QLabel("hello world"))
 
         self.setLayout(layout)
-
         self.setFixedSize(QSize(200, 200))
+
+        self.state = TrafficLightState.GREEN
+
+    def next_state(self) -> None:
+        if self.state == TrafficLightState.RED:
+            self.state = TrafficLightState.GREEN
+        elif self.state == TrafficLightState.YELLOW:
+            self.state = TrafficLightState.GREEN
+        elif self.state == TrafficLightState.GREEN:
+            self.state = TrafficLightState.RED
