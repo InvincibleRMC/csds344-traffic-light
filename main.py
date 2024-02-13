@@ -1,7 +1,9 @@
-from PyQt6.QtCore import QSize
-from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel
-
 from enum import IntEnum
+
+from PyQt6.QtCore import QSize
+from PyQt6.QtWidgets import (QApplication, QLabel, QMainWindow)
+
+from traffic_light import TrafficLight, CircleIndicator
 
 
 class TrafficState(IntEnum):
@@ -18,9 +20,12 @@ class Window(QMainWindow):
         super().__init__()
 
         self.setWindowTitle("CSDS 344 Traffic Simulation")
-        self.setFixedSize(QSize(600, 600))
+        self.setFixedSize(QSize(1200, 1200))
 
         self.label = QLabel('Hello World!', parent=self)
+        traffic_light = TrafficLight(parent=self)
+
+        traffic_light.move(150, 150)
 
         self.label.move(0, 0)
 
