@@ -124,14 +124,11 @@ class TrafficLight(QWidget):
             case TrafficLightState.RED:
                 self.red_circle.set_red()
                 self.yellow_circle.set_black()
-                self.green_circle.set_black()
             case TrafficLightState.YELLOW:
-                self.red_circle.set_black()
                 self.yellow_circle.set_yellow()
                 self.green_circle.set_black()
             case TrafficLightState.GREEN:
                 self.red_circle.set_black()
-                self.yellow_circle.set_black()
                 self.green_circle.set_green()
 
         self.update()
