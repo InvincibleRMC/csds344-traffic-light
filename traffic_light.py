@@ -54,9 +54,11 @@ class CircleIndicator(Circle):
     def set_black(self) -> None:
         self.update_color(Qt.GlobalColor.black)
 
+
 class TrafficLightDirection(IntEnum):
     NORTH_SOUTH = 0
     EAST_WEST = 1
+
 
 class TrafficLightState(IntEnum):
     RED = 1
@@ -70,18 +72,19 @@ class TrafficLight(QWidget):
         super().__init__(parent)
 
         layout = QVBoxLayout()
-        green_circle = CircleIndicator(radius=25)
-        green_circle.set_green()
-
-        yellow_circle = CircleIndicator(radius=25)
-        yellow_circle.set_yellow()
 
         red_circle = CircleIndicator(radius=25)
         red_circle.set_red()
 
-        layout.addWidget(green_circle)
-        layout.addWidget(yellow_circle)
+        yellow_circle = CircleIndicator(radius=25)
+        yellow_circle.set_yellow()
+
+        green_circle = CircleIndicator(radius=25)
+        green_circle.set_green()
+
         layout.addWidget(red_circle)
+        layout.addWidget(yellow_circle)
+        layout.addWidget(green_circle)
 
         self.setLayout(layout)
         self.setFixedSize(QSize(200, 200))
