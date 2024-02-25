@@ -1,7 +1,7 @@
 from PyQt6.QtCore import QSize
 from PyQt6.QtWidgets import (QApplication, QLabel, QMainWindow)
 
-from traffic_light import TrafficLight
+from traffic_light import TrafficLight, TrafficLightDirection
 from traffic_state import TrafficState
 
 
@@ -13,7 +13,7 @@ class Window(QMainWindow):
         self.setFixedSize(QSize(1200, 1200))
 
         self.label = QLabel('Hello World!', parent=self)
-        traffic_light = TrafficLight(parent=self)
+        traffic_light = TrafficLight(TrafficLightDirection.NORTH_SOUTH, parent=self)
 
         traffic_light.move(150, 150)
 

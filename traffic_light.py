@@ -54,6 +54,9 @@ class CircleIndicator(Circle):
     def set_black(self) -> None:
         self.update_color(Qt.GlobalColor.black)
 
+class TrafficLightDirection(IntEnum):
+    NORTH_SOUTH = 0
+    EAST_WEST = 1
 
 class TrafficLightState(IntEnum):
     RED = 1
@@ -62,7 +65,8 @@ class TrafficLightState(IntEnum):
 
 
 class TrafficLight(QWidget):
-    def __init__(self, parent: Optional[QWidget] = None) -> None:
+    def __init__(self, traffic_light_direction: TrafficLightDirection,
+                 parent: Optional[QWidget] = None) -> None:
         super().__init__(parent)
 
         layout = QVBoxLayout()
@@ -83,7 +87,9 @@ class TrafficLight(QWidget):
         self.setLayout(layout)
         self.setFixedSize(QSize(200, 200))
 
-        self.state = TrafficLightState.GREEN
+        self.direction = traffic_light_direction
+
+        self.state = TrafficLightState.RED
 
     def next_state(self) -> None:
         if self.state == TrafficLightState.RED:
@@ -93,5 +99,12 @@ class TrafficLight(QWidget):
         elif self.state == TrafficLightState.GREEN:
             self.state = TrafficLightState.RED
 
-    def update(self, state: TrafficState) -> None:
+    def start_cycle(self) -> None:
         pass
+
+    def update(self, state: TrafficState) -> None:
+        # match state:
+        #     case TrafficState.NORTH_SOUTH_LEFT:
+        pass
+            
+
