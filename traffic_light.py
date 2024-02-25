@@ -1,10 +1,11 @@
 from enum import IntEnum
 from typing import Optional
-from traffic_state import TrafficState
 
-from PyQt6.QtCore import QSize, Qt, pyqtSlot, pyqtSignal
+from PyQt6.QtCore import QSize, Qt, pyqtSignal, pyqtSlot
 from PyQt6.QtGui import QColor
 from PyQt6.QtWidgets import QLabel, QVBoxLayout, QWidget
+
+from traffic_state import TrafficState
 
 
 class Circle(QLabel):
@@ -139,4 +140,3 @@ class TrafficLight(QWidget):
         #             self.set_lights(TrafficLightState.GREEN)
         #         else:
         #             self.set_lights(TrafficLightState.RED)
-

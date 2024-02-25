@@ -1,6 +1,6 @@
 import time
 
-from PyQt6.QtCore import QSize, QObject, QThread, pyqtSignal, pyqtSlot
+from PyQt6.QtCore import QSize, QThread, pyqtSignal
 from PyQt6.QtWidgets import QApplication, QLabel, QMainWindow
 
 from traffic_light import (TrafficLight, TrafficLightDirection,
@@ -11,11 +11,11 @@ HEIGHT = 900
 WIDTH = 1200
 
 
-class Worker(QObject):
+class BackgroundThread(QThread):
     current_state = pyqtSignal(TrafficState)
     state = TrafficState.EAST_WEST_LEFT
 
-    def do_work(self) -> None:
+    def run(self) -> None:
         while True:
             self.current_state.emit(self.state)
             self.next_state()
@@ -38,6 +38,9 @@ class Worker(QObject):
 
 
 class Window(QMainWindow):
+
+    start = pyqtSignal()
+
     def __init__(self):
         super().__init__()
 
@@ -58,14 +61,9 @@ class Window(QMainWindow):
 
         self.label.move(0, 0)
 
-        self.worker = Worker()
-        self.worker.current_state.connect(self.update_all)
-        self.worker_thread = QThread()
-
-        # self.right_traffic_light.set
-
-        self.worker.moveToThread(self.worker_thread)
-        self.worker_thread.start()
+        self.custom_thread = BackgroundThread()
+        self.custom_thread.current_state.connect(self.update_all)
+        self.custom_thread.start()
 
     def update_all(self, state: TrafficState) -> None:
         self.right_traffic_light.update_state(state)
