@@ -1,3 +1,5 @@
+import time
+
 from PyQt6.QtGui import QPixmap, QTransform
 from PyQt6.QtWidgets import QWidget, QLabel
 
@@ -54,14 +56,58 @@ class LightManager:
                 ImageLabel("assets/traffic_lights/red.png", parent=window, rot=270)
             ],
         }
+        self.foo = ImageLabel("assets/traffic_lights/yellow.png", parent=window, rot=0)
+        self.foo2 = ImageLabel("assets/traffic_lights/yellow.png", parent=window, rot=180)
+        self.bar = ImageLabel("assets/traffic_lights/yellow.png", parent=window, rot=90)
+        self.bar2 = ImageLabel("assets/traffic_lights/yellow.png", parent=window, rot=270)
+        self.foo.hide()
+        self.foo2.hide()
+        self.bar.hide()
+        self.bar2.hide()
 
     def update_state(self, new_state: TrafficState) -> None:
+        time.sleep(1)
         for state, light_list in self.state_arrows.items():
             for light in light_list:
                 if state == new_state:
                     light.show()
                 else:
                     light.hide()
+
+        time.sleep(1)
+        # for state, light_list in self.state_arrows.items():
+        #     for light in light_list:
+        #         if state == new_state:
+        #             light.hide()
+
+        NORTH_SOUTH = [TrafficState.NORTH_SOUTH_LEFT, TrafficState.NORTH_SOUTH_STRAIGHT, TrafficState.NORTH_SOUTH_RIGHT]
+        EAST_WEST = [TrafficState.EAST_WEST_LEFT, TrafficState.EAST_WEST_STRAIGHT, TrafficState.EAST_WEST_RIGHT]
+
+        if new_state in NORTH_SOUTH:
+            # foo = 
+            self.foo.show()
+            # foo2 = 
+            self.foo2.show()
+        else:
+            # bar = 
+            self.bar.show()
+            
+            self.bar2.show()
+
+        time.sleep(1)
+
+        if new_state in NORTH_SOUTH:
+            self.foo.hide()
+            self.foo2.hide()
+            # ImageLabel("assets/traffic_lights/red.png", parent=self.window, rot=0).show()
+            # ImageLabel("assets/traffic_lights/red.png", parent=self.window, rot=180).show()
+        else:
+            self.bar.hide()
+            self.bar2.hide()
+            # ImageLabel("assets/traffic_lights/red.png", parent=self.window, rot=90).show()
+            # ImageLabel("assets/traffic_lights/red.png", parent=self.window, rot=270).show()
+
+        time.sleep(1)
 
 
 class ArrowsManager:
