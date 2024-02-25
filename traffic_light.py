@@ -36,7 +36,7 @@ class Circle(QLabel):
             self.setStyleSheet(split[0])
 
     def update_color(self, color: QColor | Qt.GlobalColor) -> None:
-        self.clear_color()
+        #self.clear_color()
         self.set_color(color)
 
 
@@ -118,20 +118,21 @@ class TrafficLight(QWidget):
         self.set_lights(TrafficLightState.YELLOW)
         time.sleep(1)
         self.set_lights(TrafficLightState.RED)
+        time.sleep(1)
 
     def set_lights(self, state: TrafficLightState) -> None:
         match state:
             case TrafficLightState.RED:
                 self.red_circle.set_red()
                 self.yellow_circle.set_black()
-                self.green_circle.set_black()
+                #self.green_circle.set_black()
             case TrafficLightState.YELLOW:
-                self.red_circle.set_black()
+                #self.red_circle.set_black()
                 self.yellow_circle.set_yellow()
                 self.green_circle.set_black()
             case TrafficLightState.GREEN:
                 self.red_circle.set_black()
-                self.yellow_circle.set_black()
+                #self.yellow_circle.set_black()
                 self.green_circle.set_green()
 
     # @pyqtSlot(TrafficState)
