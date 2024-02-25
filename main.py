@@ -20,7 +20,7 @@ class BackgroundThread(QThread):
         while True:
             self.current_state.emit(self.state)
             self.next_state()
-            time.sleep(1)
+            time.sleep(6)
 
     def next_state(self) -> None:
         match self.state:
@@ -66,10 +66,10 @@ class Window(QMainWindow):
         self.custom_thread.start()
 
     def update_all(self, state: TrafficState) -> None:
-        self.right_traffic_light.update_state(state)
-        self.left_traffic_light.update_state(state)
-        self.top_traffic_light.update_state(state)
-        self.bottom_traffic_light.update_state(state)
+        self.right_traffic_light.async_update_state(state)
+        self.left_traffic_light.async_update_state(state)
+        self.top_traffic_light.async_update_state(state)
+        self.bottom_traffic_light.async_update_state(state)
         self.arrows.update_state(state)
 
 
