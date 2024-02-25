@@ -134,6 +134,8 @@ class TrafficLight(QWidget):
                 self.yellow_circle.set_black()
                 self.green_circle.set_green()
 
+        self.update()
+
     # @pyqtSlot(TrafficState)
     def update_state(self, state: TrafficState) -> None:
 
