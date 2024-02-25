@@ -19,22 +19,53 @@ class BackgroundThread(QThread):
         while True:
             self.current_state.emit(self.state)
             self.next_state()
-            time.sleep(6)
+            # green 4 sec, yellow 1 sec, red 1 sec
+            if self.current_state % 3 == 0:
+                time.sleep(4)
+            elif self.current_state % 3 == 1:
+                time.sleep(1.5)
+            else:
+                time.sleep(0.5)
 
     def next_state(self) -> None:
-        match self.state:
-            case TrafficState.EAST_WEST_LEFT:
-                self.state = TrafficState.EAST_WEST_STRAIGHT
-            case TrafficState.EAST_WEST_STRAIGHT:
-                self.state = TrafficState.EAST_WEST_RIGHT
-            case TrafficState.EAST_WEST_RIGHT:
-                self.state = TrafficState.NORTH_SOUTH_LEFT
-            case TrafficState.NORTH_SOUTH_LEFT:
-                self.state = TrafficState.NORTH_SOUTH_STRAIGHT
-            case TrafficState.NORTH_SOUTH_STRAIGHT:
-                self.state = TrafficState.NORTH_SOUTH_RIGHT
-            case TrafficState.NORTH_SOUTH_RIGHT:
-                self.state = TrafficState.EAST_WEST_LEFT
+        self.state = (self.state + 1) % 18
+        # match self.state:
+        #     case TrafficState.EAST_WEST_LEFT_GREEN:
+        #         self.state = TrafficState.EAST_WEST_LEFT_YELLOW
+        #     case TrafficState.EAST_WEST_LEFT_YELLOW:
+        #         self.state = TrafficState.EAST_WEST_LEFT_RED
+        #     case TrafficState.EAST_WEST_LEFT_RED:
+        #         self.state = TrafficState.EAST_WEST_STRAIGHT_GREEN
+        #     case TrafficState.EAST_WEST_STRAIGHT_GREEN:
+        #         self.state = TrafficState.EAST_WEST_STRAIGHT_YELLOW
+        #     case TrafficState.EAST_WEST_STRAIGHT_YELLOW:
+        #         self.state = TrafficState.EAST_WEST_STRAIGHT_RED
+        #     case TrafficState.EAST_WEST_STRAIGHT_RED:        
+        #         self.state = TrafficState.EAST_WEST_RIGHT_GREEN
+        #     case TrafficState.EAST_WEST_RIGHT_GREEN:
+        #         self.state = TrafficState.EAST_WEST_RIGHT_YELLOW
+        #     case TrafficState.EAST_WEST_RIGHT_YELLOW:
+        #         self.state = TrafficState.EAST_WEST_RIGHT_RED
+        #     case TrafficState.EAST_WEST_RIGHT_RED:
+        #         self.state = TrafficState.NORTH_SOUTH_LEFT_GREEN
+        #     case TrafficState.NORTH_SOUTH_LEFT_GREEN:
+        #         self.state = TrafficState.NORTH_SOUTH_LEFT_YELLOW
+        #     case TrafficState.NORTH_SOUTH_LEFT_YELLOW:
+        #         self.state = TrafficState.NORTH_SOUTH_LEFT_RED
+        #     case TrafficState.NORTH_SOUTH_LEFT_RED:
+        #         self.state = TrafficState.NORTH_SOUTH_STRAIGHT_GREEN
+        #     case TrafficState.NORTH_SOUTH_STRAIGHT_GREEN:
+        #         self.state = TrafficState.NORTH_SOUTH_STRAIGHT_YELLOW
+        #     case TrafficState.NORTH_SOUTH_STRAIGHT_YELLOW:
+        #         self.state = TrafficState.NORTH_SOUTH_STRAIGHT_RED
+        #     case TrafficState.NORTH_SOUTH_STRAIGHT_RED:
+        #         self.state = TrafficState.NORTH_SOUTH_RIGHT_GREEN
+        #     case TrafficState.NORTH_SOUTH_RIGHT_GREEN:
+        #         self.state = TrafficState.NORTH_SOUTH_RIGHT_YELLOW
+        #     case TrafficState.NORTH_SOUTH_RIGHT_YELLOW:
+        #         self.state = TrafficState.NORTH_SOUTH_RIGHT_RED
+        #     case TrafficState.NORTH_SOUTH_RIGHT_RED:
+        #         self.state = TrafficState.EAST_WEST_LEFT_GREEN
 
 
 class Window(QMainWindow):

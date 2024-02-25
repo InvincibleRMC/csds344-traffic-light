@@ -28,13 +28,13 @@ class TrafficLight:
         self.all_images = [self.red, self.yellow, self.green, self.green_left, self.green_right]
 
         if north_south:
-            self.straight_state = TrafficState.NORTH_SOUTH_STRAIGHT
-            self.left_state = TrafficState.NORTH_SOUTH_LEFT
-            self.right_state = TrafficState.NORTH_SOUTH_RIGHT
+            self.straight_state = [TrafficState.NORTH_SOUTH_STRAIGHT_GREEN, TrafficState.NORTH_SOUTH_STRAIGHT_YELLOW, TrafficState.NORTH_SOUTH_STRAIGHT_RED]
+            self.left_state = [TrafficState.NORTH_SOUTH_LEFT_GREEN, TrafficState.NORTH_SOUTH_LEFT_YELLOW, TrafficState.NORTH_SOUTH_LEFT_RED]
+            self.right_state = [TrafficState.NORTH_SOUTH_RIGHT_GREEN, TrafficState.NORTH_SOUTH_RIGHT_YELLOW, TrafficState.NORTH_SOUTH_RIGHT_RED]
         else:
-            self.straight_state = TrafficState.EAST_WEST_STRAIGHT
-            self.left_state = TrafficState.EAST_WEST_LEFT
-            self.right_state = TrafficState.EAST_WEST_RIGHT
+            self.straight_state = [TrafficState.EAST_WEST_STRAIGHT_GREEN, TrafficState.EAST_WEST_STRAIGHT_YELLOW, TrafficState.EAST_WEST_STRAIGHT_RED]
+            self.left_state = [TrafficState.EAST_WEST_LEFT_GREEN, TrafficState.EAST_WEST_LEFT_YELLOW, TrafficState.EAST_WEST_LEFT_RED]
+            self.right_state = [TrafficState.EAST_WEST_RIGHT_GREEN, TrafficState.EAST_WEST_RIGHT_YELLOW, TrafficState.EAST_WEST_RIGHT_RED]
 
     def set_image(self, image: ImageLabel):
         for img in self.all_images:
