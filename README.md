@@ -3,6 +3,7 @@
 Stoplight Project
 
 Authors: Michael Carlstrom, Levi Ladd, Noah Mollerstuen, Daniel Tayman
+
 Group 16
 
 There are green arrows on the ground that would denote where cars would drive, and there are blue arrows on the ground to show where pedestrians can walk, based on the walk signals and stoplights, and what it all shows.
