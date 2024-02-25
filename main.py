@@ -1,10 +1,11 @@
+import signal
 import time
 
 from PyQt6.QtCore import QSize, QThread, pyqtSignal
 from PyQt6.QtWidgets import QApplication, QMainWindow
 
+from images import ArrowsManager, ImageLabel, LightManager
 from traffic_state import TrafficState
-from images import ImageLabel, ArrowsManager, LightManager
 
 HEIGHT = 600
 WIDTH = 600
@@ -15,7 +16,6 @@ class BackgroundThread(QThread):
     state = TrafficState.EAST_WEST_LEFT
 
     def run(self) -> None:
-        time.sleep(3)
         while True:
             self.current_state.emit(self.state)
             self.next_state()
@@ -89,6 +89,9 @@ class Window(QMainWindow):
         self.arrows.update_state(state)
         self.lights.update_state(state)
 
+
+# Kills with Control + C
+signal.signal(signal.SIGINT, signal.SIG_DFL)
 
 app = QApplication([])
 
