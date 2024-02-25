@@ -18,32 +18,32 @@ class ArrowsManager:
     def __init__(self, window: QWidget):
         self.state_arrows = {
             TrafficState.EAST_WEST_LEFT: [
-                ImageLabel("assets/car_left.png", parent=window, rot=90),
-                ImageLabel("assets/car_left.png", parent=window, rot=270)
+                ImageLabel("assets/arrows/car_left.png", parent=window, rot=90),
+                ImageLabel("assets/arrows/car_left.png", parent=window, rot=270)
             ],
             TrafficState.EAST_WEST_STRAIGHT: [
-                ImageLabel("assets/car_straight.png", parent=window, rot=90),
-                ImageLabel("assets/car_straight.png", parent=window, rot=270),
-                ImageLabel("assets/pedestrian.png", parent=window, rot=0),
-                ImageLabel("assets/pedestrian.png", parent=window, rot=180)
+                ImageLabel("assets/arrows/car_straight.png", parent=window, rot=90),
+                ImageLabel("assets/arrows/car_straight.png", parent=window, rot=270),
+                ImageLabel("assets/arrows/pedestrian.png", parent=window, rot=0),
+                ImageLabel("assets/arrows/pedestrian.png", parent=window, rot=180)
             ],
             TrafficState.EAST_WEST_RIGHT: [
-                ImageLabel("assets/car_right.png", parent=window, rot=90),
-                ImageLabel("assets/car_right.png", parent=window, rot=270)
+                ImageLabel("assets/arrows/car_right.png", parent=window, rot=90),
+                ImageLabel("assets/arrows/car_right.png", parent=window, rot=270)
             ],
             TrafficState.NORTH_SOUTH_LEFT: [
-                ImageLabel("assets/car_left.png", parent=window, rot=0),
-                ImageLabel("assets/car_left.png", parent=window, rot=180)
+                ImageLabel("assets/arrows/car_left.png", parent=window, rot=0),
+                ImageLabel("assets/arrows/car_left.png", parent=window, rot=180)
             ],
             TrafficState.NORTH_SOUTH_STRAIGHT: [
-                ImageLabel("assets/car_straight.png", parent=window, rot=0),
-                ImageLabel("assets/car_straight.png", parent=window, rot=180),
-                ImageLabel("assets/pedestrian.png", parent=window, rot=90),
-                ImageLabel("assets/pedestrian.png", parent=window, rot=270)
+                ImageLabel("assets/arrows/car_straight.png", parent=window, rot=0),
+                ImageLabel("assets/arrows/car_straight.png", parent=window, rot=180),
+                ImageLabel("assets/arrows/pedestrian.png", parent=window, rot=90),
+                ImageLabel("assets/arrows/pedestrian.png", parent=window, rot=270)
             ],
             TrafficState.NORTH_SOUTH_RIGHT: [
-                ImageLabel("assets/car_right.png", parent=window, rot=0),
-                ImageLabel("assets/car_right.png", parent=window, rot=180)
+                ImageLabel("assets/arrows/car_right.png", parent=window, rot=0),
+                ImageLabel("assets/arrows/car_right.png", parent=window, rot=180)
             ],
         }
 

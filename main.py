@@ -47,7 +47,7 @@ class Window(QMainWindow):
         self.setWindowTitle("CSDS 344 Traffic Simulation")
         self.setFixedSize(QSize(WIDTH, HEIGHT))
 
-        self.background = ImageLabel("assets/intersection.png", parent=self)
+        self.background = ImageLabel("assets/arrows/intersection.png", parent=self)
         self.arrows = ArrowsManager(window=self)
 
         self.right_traffic_light = TrafficLight(TrafficLightDirection.EAST_WEST, parent=self)
