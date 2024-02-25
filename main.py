@@ -3,8 +3,7 @@ import time
 from PyQt6.QtCore import QSize, QThread, pyqtSignal
 from PyQt6.QtWidgets import QApplication, QMainWindow
 
-from traffic_light import (TrafficLight, TrafficLightDirection,
-                           TrafficLightState)
+from traffic_light import TrafficLight, TrafficLightDirection
 from traffic_state import TrafficState
 from images import ImageLabel, ArrowsManager
 
