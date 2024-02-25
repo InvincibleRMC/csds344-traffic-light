@@ -137,8 +137,8 @@ class TrafficLight(QWidget):
     # @pyqtSlot(TrafficState)
     def update_state(self, state: TrafficState) -> None:
 
-        north_south = [TrafficState.NORTH_SOUTH_LEFT, TrafficState.NORTH_SOUTH_STRAIGHT, TrafficState.NORTH_SOUTH_STRAIGHT]
-        east_west = [TrafficState.EAST_WEST_LEFT, TrafficState.EAST_WEST_STRAIGHT, TrafficState.EAST_WEST_STRAIGHT]
+        north_south = [TrafficState.NORTH_SOUTH_LEFT, TrafficState.NORTH_SOUTH_STRAIGHT, TrafficState.NORTH_SOUTH_RIGHT]
+        east_west = [TrafficState.EAST_WEST_LEFT, TrafficState.EAST_WEST_STRAIGHT, TrafficState.EAST_WEST_RIGHT]
 
         if state in north_south:
             if self.direction is TrafficLightDirection.NORTH_SOUTH:
