@@ -82,7 +82,6 @@ class TrafficLight(QWidget):
         layout.addWidget(green_circle)
         layout.addWidget(yellow_circle)
         layout.addWidget(red_circle)
-        layout.addWidget(QLabel("hello world"))
 
         self.setLayout(layout)
         self.setFixedSize(QSize(200, 200))
