@@ -48,8 +48,8 @@ class ArrowsManager:
         }
 
     def update_state(self, new_state: TrafficState) -> None:
-        for state in self.state_arrows.keys():
-            for arrow in self.state_arrows[state]:
+        for state, arrow_list in self.state_arrows.items():
+            for arrow in arrow_list:
                 if state == new_state:
                     arrow.show()
                 else:

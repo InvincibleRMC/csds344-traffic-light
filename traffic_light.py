@@ -3,7 +3,7 @@ from enum import IntEnum
 from typing import Optional
 from threading import Thread
 
-from PyQt6.QtCore import QSize, Qt, pyqtSignal, pyqtSlot
+from PyQt6.QtCore import QSize, Qt
 from PyQt6.QtGui import QColor
 from PyQt6.QtWidgets import QLabel, QVBoxLayout, QWidget
 
@@ -71,8 +71,6 @@ class TrafficLightState(IntEnum):
 
 class TrafficLight(QWidget):
 
-    # signal = pyqtSignal(TrafficState)
-
     def __init__(self, traffic_light_direction: TrafficLightDirection,
                  parent: Optional[QWidget] = None) -> None:
         super().__init__(parent)
@@ -96,21 +94,10 @@ class TrafficLight(QWidget):
         self.setFixedSize(QSize(100, 100))
 
         self.direction = traffic_light_direction
-        # self.state = TrafficLightState.RED
 
         self.red_circle = red_circle
         self.yellow_circle = yellow_circle
         self.green_circle = green_circle
-
-        # self.signal.connect(self.update_state)
-
-    # def next_state(self) -> None:
-    #     if self.state == TrafficLightState.RED:
-    #         self.state = TrafficLightState.GREEN
-    #     elif self.state == TrafficLightState.YELLOW:
-    #         self.state = TrafficLightState.GREEN
-    #     elif self.state == TrafficLightState.GREEN:
-    #         self.state = TrafficLightState.RED
 
     def start_cycle(self) -> None:
         self.set_lights(TrafficLightState.GREEN)
@@ -124,19 +111,15 @@ class TrafficLight(QWidget):
             case TrafficLightState.RED:
                 self.red_circle.set_red()
                 self.yellow_circle.set_black()
-                self.green_circle.set_black()
             case TrafficLightState.YELLOW:
-                self.red_circle.set_black()
                 self.yellow_circle.set_yellow()
                 self.green_circle.set_black()
             case TrafficLightState.GREEN:
                 self.red_circle.set_black()
-                self.yellow_circle.set_black()
                 self.green_circle.set_green()
 
         self.update()
 
-    # @pyqtSlot(TrafficState)
     def update_state(self, state: TrafficState) -> None:
 
         north_south = [TrafficState.NORTH_SOUTH_LEFT, TrafficState.NORTH_SOUTH_STRAIGHT, TrafficState.NORTH_SOUTH_RIGHT]
