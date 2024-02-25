@@ -56,10 +56,10 @@ class Window(QMainWindow):
         self.top_traffic_light = TrafficLight(TrafficLightDirection.NORTH_SOUTH, parent=self)
         self.bottom_traffic_light = TrafficLight(TrafficLightDirection.NORTH_SOUTH, parent=self)
 
-        self.right_traffic_light.move(900, 450)
-        self.left_traffic_light.move(300, 300)
-        self.top_traffic_light.move(600, 700)
-        self.bottom_traffic_light.move(600, 50)
+        self.right_traffic_light.move(450, 250)
+        self.left_traffic_light.move(250, 250)
+        self.top_traffic_light.move(300, 100)
+        self.bottom_traffic_light.move(300, 350)
 
         self.custom_thread = BackgroundThread()
         self.custom_thread.current_state.connect(self.update_all)
