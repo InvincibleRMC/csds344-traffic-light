@@ -77,10 +77,10 @@ class TrafficLight(QWidget):
         red_circle.set_red()
 
         yellow_circle = CircleIndicator(radius=25)
-        yellow_circle.set_yellow()
+        yellow_circle.set_black()
 
         green_circle = CircleIndicator(radius=25)
-        green_circle.set_green()
+        green_circle.set_black()
 
         layout.addWidget(red_circle)
         layout.addWidget(yellow_circle)
