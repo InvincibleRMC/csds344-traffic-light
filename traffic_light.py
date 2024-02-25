@@ -1,5 +1,7 @@
+import time
 from enum import IntEnum
 from typing import Optional
+from threading import Thread
 
 from PyQt6.QtCore import QSize, Qt, pyqtSignal, pyqtSlot
 from PyQt6.QtGui import QColor
@@ -69,7 +71,7 @@ class TrafficLightState(IntEnum):
 
 class TrafficLight(QWidget):
 
-    signal = pyqtSignal(TrafficState)
+    # signal = pyqtSignal(TrafficState)
 
     def __init__(self, traffic_light_direction: TrafficLightDirection,
                  parent: Optional[QWidget] = None) -> None:
@@ -100,7 +102,7 @@ class TrafficLight(QWidget):
         self.yellow_circle = yellow_circle
         self.green_circle = green_circle
 
-        self.signal.connect(self.update_state)
+        # self.signal.connect(self.update_state)
 
     def next_state(self) -> None:
         if self.state == TrafficLightState.RED:
@@ -111,7 +113,11 @@ class TrafficLight(QWidget):
             self.state = TrafficLightState.RED
 
     def start_cycle(self) -> None:
-        pass
+        self.set_lights(TrafficLightState.GREEN)
+        time.sleep(1)
+        self.set_lights(TrafficLightState.YELLOW)
+        time.sleep(1)
+        self.set_lights(TrafficLightState.RED)
 
     def set_lights(self, state: TrafficLightState) -> None:
         match state:
@@ -128,15 +134,24 @@ class TrafficLight(QWidget):
                 self.yellow_circle.set_black()
                 self.green_circle.set_green()
 
-    # def set_lights_with_direction(self, state: TrafficState) -> None:
-    #     if self.direction is TrafficLightDirection.NORTH_SOUTH
-    @pyqtSlot(TrafficState)
+    # @pyqtSlot(TrafficState)
     def update_state(self, state: TrafficState) -> None:
-        print(state)
-        self.green_circle.set_green()
-        # match state:
-        #     case TrafficState.NORTH_SOUTH_LEFT:
-        #         if self.direction is TrafficLightDirection.NORTH_SOUTH:
-        #             self.set_lights(TrafficLightState.GREEN)
-        #         else:
-        #             self.set_lights(TrafficLightState.RED)
+
+        north_south = [TrafficState.NORTH_SOUTH_LEFT, TrafficState.NORTH_SOUTH_STRAIGHT, TrafficState.NORTH_SOUTH_STRAIGHT]
+        east_west = [TrafficState.EAST_WEST_LEFT, TrafficState.EAST_WEST_STRAIGHT, TrafficState.EAST_WEST_STRAIGHT]
+
+        if state in north_south:
+            if self.direction is TrafficLightDirection.NORTH_SOUTH:
+                self.start_cycle()
+            else:
+                self.set_lights(TrafficLightState.RED)
+        elif state in east_west:
+            if self.direction is TrafficLightDirection.EAST_WEST:
+                self.start_cycle()
+            else:
+                self.set_lights(TrafficLightState.RED)
+        else:
+            print("sad")
+
+    def async_update_state(self, state: TrafficState) -> None:
+        Thread(target=self.update_state, daemon=True, args=[state]).start()
