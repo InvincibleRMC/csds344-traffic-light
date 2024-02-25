@@ -96,7 +96,7 @@ class TrafficLight(QWidget):
         self.setFixedSize(QSize(200, 200))
 
         self.direction = traffic_light_direction
-        self.state = TrafficLightState.RED
+        # self.state = TrafficLightState.RED
 
         self.red_circle = red_circle
         self.yellow_circle = yellow_circle
@@ -104,13 +104,13 @@ class TrafficLight(QWidget):
 
         # self.signal.connect(self.update_state)
 
-    def next_state(self) -> None:
-        if self.state == TrafficLightState.RED:
-            self.state = TrafficLightState.GREEN
-        elif self.state == TrafficLightState.YELLOW:
-            self.state = TrafficLightState.GREEN
-        elif self.state == TrafficLightState.GREEN:
-            self.state = TrafficLightState.RED
+    # def next_state(self) -> None:
+    #     if self.state == TrafficLightState.RED:
+    #         self.state = TrafficLightState.GREEN
+    #     elif self.state == TrafficLightState.YELLOW:
+    #         self.state = TrafficLightState.GREEN
+    #     elif self.state == TrafficLightState.GREEN:
+    #         self.state = TrafficLightState.RED
 
     def start_cycle(self) -> None:
         self.set_lights(TrafficLightState.GREEN)

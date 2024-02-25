@@ -19,7 +19,7 @@ class BackgroundThread(QThread):
         while True:
             self.current_state.emit(self.state)
             self.next_state()
-            time.sleep(3)
+            time.sleep(6)
 
     def next_state(self) -> None:
         match self.state:
