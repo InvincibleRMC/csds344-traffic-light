@@ -77,13 +77,13 @@ class TrafficLight(QWidget):
 
         layout = QVBoxLayout()
 
-        red_circle = CircleIndicator(radius=25)
+        red_circle = CircleIndicator(radius=12)
         red_circle.set_red()
 
-        yellow_circle = CircleIndicator(radius=25)
+        yellow_circle = CircleIndicator(radius=12)
         yellow_circle.set_black()
 
-        green_circle = CircleIndicator(radius=25)
+        green_circle = CircleIndicator(radius=12)
         green_circle.set_black()
 
         layout.addWidget(red_circle)
@@ -91,7 +91,7 @@ class TrafficLight(QWidget):
         layout.addWidget(green_circle)
 
         self.setLayout(layout)
-        self.setFixedSize(QSize(200, 200))
+        self.setFixedSize(QSize(100, 100))
 
         self.direction = traffic_light_direction
         self.state = TrafficLightState.RED

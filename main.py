@@ -1,14 +1,15 @@
 import time
 
 from PyQt6.QtCore import QSize, QThread, pyqtSignal
-from PyQt6.QtWidgets import QApplication, QLabel, QMainWindow
+from PyQt6.QtWidgets import QApplication, QMainWindow
 
 from traffic_light import (TrafficLight, TrafficLightDirection,
                            TrafficLightState)
 from traffic_state import TrafficState
+from images import ImageLabel, ArrowsManager
 
-HEIGHT = 900
-WIDTH = 1200
+HEIGHT = 600
+WIDTH = 600
 
 
 class BackgroundThread(QThread):
@@ -38,7 +39,6 @@ class BackgroundThread(QThread):
 
 
 class Window(QMainWindow):
-
     start = pyqtSignal()
 
     def __init__(self):
@@ -47,7 +47,9 @@ class Window(QMainWindow):
         self.setWindowTitle("CSDS 344 Traffic Simulation")
         self.setFixedSize(QSize(WIDTH, HEIGHT))
 
-        self.label = QLabel('Hello World!', parent=self)
+        self.background = ImageLabel("assets/intersection.png", parent=self)
+        self.arrows = ArrowsManager(window=self)
+
         self.right_traffic_light = TrafficLight(TrafficLightDirection.EAST_WEST, parent=self)
         self.left_traffic_light = TrafficLight(TrafficLightDirection.EAST_WEST, parent=self)
 
@@ -55,11 +57,9 @@ class Window(QMainWindow):
         self.bottom_traffic_light = TrafficLight(TrafficLightDirection.NORTH_SOUTH, parent=self)
 
         self.right_traffic_light.move(900, 450)
-        self.left_traffic_light.move(300, 450)
+        self.left_traffic_light.move(300, 300)
         self.top_traffic_light.move(600, 700)
         self.bottom_traffic_light.move(600, 50)
-
-        self.label.move(0, 0)
 
         self.custom_thread = BackgroundThread()
         self.custom_thread.current_state.connect(self.update_all)
@@ -70,6 +70,7 @@ class Window(QMainWindow):
         self.left_traffic_light.update_state(state)
         self.top_traffic_light.update_state(state)
         self.bottom_traffic_light.update_state(state)
+        self.arrows.update_state(state)
 
 
 app = QApplication([])
