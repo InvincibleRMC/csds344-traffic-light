@@ -1,4 +1,5 @@
-CSDS 344 Project 1
+# CSDS 344 Project 1
+
 Stoplight Project
 
 Authors: Michael Carlstrom, Levi Ladd, Noah Mollerstuen

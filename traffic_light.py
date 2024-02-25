@@ -106,5 +106,3 @@ class TrafficLight(QWidget):
         # match state:
         #     case TrafficState.NORTH_SOUTH_LEFT:
         pass
-            
-
