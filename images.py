@@ -14,6 +14,56 @@ class ImageLabel(QLabel):
         self.resize(self.img.width(), self.img.height())
 
 
+class LightManager:
+    def __init__(self, window: QWidget):
+        self.state_arrows = {
+            TrafficState.EAST_WEST_LEFT: [
+                ImageLabel("assets/traffic_lights/green_left.png", parent=window, rot=90),
+                ImageLabel("assets/traffic_lights/green_left.png", parent=window, rot=270),
+                ImageLabel("assets/traffic_lights/red.png", parent=window, rot=0),
+                ImageLabel("assets/traffic_lights/red.png", parent=window, rot=180)
+            ],
+            TrafficState.EAST_WEST_STRAIGHT: [
+                ImageLabel("assets/traffic_lights/green.png", parent=window, rot=90),
+                ImageLabel("assets/traffic_lights/green.png", parent=window, rot=270),
+                ImageLabel("assets/traffic_lights/red.png", parent=window, rot=0),
+                ImageLabel("assets/traffic_lights/red.png", parent=window, rot=180)
+            ],
+            TrafficState.EAST_WEST_RIGHT: [
+                ImageLabel("assets/traffic_lights/green_right.png", parent=window, rot=90),
+                ImageLabel("assets/traffic_lights/green_right.png", parent=window, rot=270),
+                ImageLabel("assets/traffic_lights/red.png", parent=window, rot=0),
+                ImageLabel("assets/traffic_lights/red.png", parent=window, rot=180)
+            ],
+            TrafficState.NORTH_SOUTH_LEFT: [
+                ImageLabel("assets/traffic_lights/green_left.png", parent=window, rot=0),
+                ImageLabel("assets/traffic_lights/green_left.png", parent=window, rot=180),
+                ImageLabel("assets/traffic_lights/red.png", parent=window, rot=90),
+                ImageLabel("assets/traffic_lights/red.png", parent=window, rot=270)
+            ],
+            TrafficState.NORTH_SOUTH_STRAIGHT: [
+                ImageLabel("assets/traffic_lights/green.png", parent=window, rot=0),
+                ImageLabel("assets/traffic_lights/green.png", parent=window, rot=180),
+                ImageLabel("assets/traffic_lights/red.png", parent=window, rot=90),
+                ImageLabel("assets/traffic_lights/red.png", parent=window, rot=270)
+            ],
+            TrafficState.NORTH_SOUTH_RIGHT: [
+                ImageLabel("assets/traffic_lights/green_right.png", parent=window, rot=0),
+                ImageLabel("assets/traffic_lights/green_right.png", parent=window, rot=180),
+                ImageLabel("assets/traffic_lights/red.png", parent=window, rot=90),
+                ImageLabel("assets/traffic_lights/red.png", parent=window, rot=270)
+            ],
+        }
+
+    def update_state(self, new_state: TrafficState) -> None:
+        for state, light_list in self.state_arrows.items():
+            for light in light_list:
+                if state == new_state:
+                    light.show()
+                else:
+                    light.hide()
+
+
 class ArrowsManager:
     def __init__(self, window: QWidget):
         self.state_arrows = {

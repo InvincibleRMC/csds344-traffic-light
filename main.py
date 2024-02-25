@@ -3,9 +3,8 @@ import time
 from PyQt6.QtCore import QSize, QThread, pyqtSignal
 from PyQt6.QtWidgets import QApplication, QMainWindow
 
-from traffic_light import TrafficLight, TrafficLightDirection
 from traffic_state import TrafficState
-from images import ImageLabel, ArrowsManager
+from images import ImageLabel, ArrowsManager, LightManager
 
 HEIGHT = 600
 WIDTH = 600
@@ -48,28 +47,15 @@ class Window(QMainWindow):
 
         self.background = ImageLabel("assets/arrows/intersection.png", parent=self)
         self.arrows = ArrowsManager(window=self)
-
-        self.right_traffic_light = TrafficLight(TrafficLightDirection.EAST_WEST, parent=self)
-        self.left_traffic_light = TrafficLight(TrafficLightDirection.EAST_WEST, parent=self)
-
-        self.top_traffic_light = TrafficLight(TrafficLightDirection.NORTH_SOUTH, parent=self)
-        self.bottom_traffic_light = TrafficLight(TrafficLightDirection.NORTH_SOUTH, parent=self)
-
-        self.right_traffic_light.move(450, 250)
-        self.left_traffic_light.move(250, 250)
-        self.top_traffic_light.move(300, 100)
-        self.bottom_traffic_light.move(300, 350)
+        self.lights = LightManager(window=self)
 
         self.custom_thread = BackgroundThread()
         self.custom_thread.current_state.connect(self.update_all)
         self.custom_thread.start()
 
     def update_all(self, state: TrafficState) -> None:
-        self.right_traffic_light.async_update_state(state)
-        self.left_traffic_light.async_update_state(state)
-        self.top_traffic_light.async_update_state(state)
-        self.bottom_traffic_light.async_update_state(state)
         self.arrows.update_state(state)
+        self.lights.update_state(state)
 
 
 app = QApplication([])
