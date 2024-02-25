@@ -15,6 +15,7 @@ class BackgroundThread(QThread):
     state = TrafficState.EAST_WEST_LEFT
 
     def run(self) -> None:
+        time.sleep(3)
         while True:
             self.current_state.emit(self.state)
             self.next_state()
