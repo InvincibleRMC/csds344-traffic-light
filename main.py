@@ -1,11 +1,40 @@
-from PyQt6.QtCore import QSize
-from PyQt6.QtWidgets import (QApplication, QLabel, QMainWindow)
+import time
 
-from traffic_light import TrafficLight, TrafficLightDirection
+from PyQt6.QtCore import QSize, QObject, QThread, pyqtSignal, pyqtSlot
+from PyQt6.QtWidgets import QApplication, QLabel, QMainWindow
+
+from traffic_light import (TrafficLight, TrafficLightDirection,
+                           TrafficLightState)
 from traffic_state import TrafficState
 
 HEIGHT = 900
 WIDTH = 1200
+
+
+class Worker(QObject):
+    current_state = pyqtSignal(TrafficState)
+    state = TrafficState.EAST_WEST_LEFT
+
+    def do_work(self) -> None:
+        while True:
+            self.current_state.emit(self.state)
+            self.next_state()
+            time.sleep(1)
+
+    def next_state(self) -> None:
+        match self.state:
+            case TrafficState.EAST_WEST_LEFT:
+                self.state = TrafficState.EAST_WEST_STRAIGHT
+            case TrafficState.EAST_WEST_STRAIGHT:
+                self.state = TrafficState.EAST_WEST_RIGHT
+            case TrafficState.EAST_WEST_RIGHT:
+                self.state = TrafficState.NORTH_SOUTH_LEFT
+            case TrafficState.NORTH_SOUTH_LEFT:
+                self.state = TrafficState.NORTH_SOUTH_STRAIGHT
+            case TrafficState.NORTH_SOUTH_STRAIGHT:
+                self.state = TrafficState.NORTH_SOUTH_RIGHT
+            case TrafficState.NORTH_SOUTH_RIGHT:
+                self.state = TrafficState.EAST_WEST_LEFT
 
 
 class Window(QMainWindow):
@@ -16,18 +45,33 @@ class Window(QMainWindow):
         self.setFixedSize(QSize(WIDTH, HEIGHT))
 
         self.label = QLabel('Hello World!', parent=self)
-        right_traffic_light = TrafficLight(TrafficLightDirection.EAST_WEST, parent=self)
-        left_traffic_light = TrafficLight(TrafficLightDirection.EAST_WEST, parent=self)
+        self.right_traffic_light = TrafficLight(TrafficLightDirection.EAST_WEST, parent=self)
+        self.left_traffic_light = TrafficLight(TrafficLightDirection.EAST_WEST, parent=self)
 
-        top_traffic_light = TrafficLight(TrafficLightDirection.NORTH_SOUTH, parent=self)
-        bottom_traffic_light = TrafficLight(TrafficLightDirection.NORTH_SOUTH, parent=self)
+        self.top_traffic_light = TrafficLight(TrafficLightDirection.NORTH_SOUTH, parent=self)
+        self.bottom_traffic_light = TrafficLight(TrafficLightDirection.NORTH_SOUTH, parent=self)
 
-        right_traffic_light.move(900, 450)
-        left_traffic_light.move(300, 450)
-        top_traffic_light.move(600, 700)
-        bottom_traffic_light.move(600, 50)
+        self.right_traffic_light.move(900, 450)
+        self.left_traffic_light.move(300, 450)
+        self.top_traffic_light.move(600, 700)
+        self.bottom_traffic_light.move(600, 50)
 
         self.label.move(0, 0)
+
+        self.worker = Worker()
+        self.worker.current_state.connect(self.update_all)
+        self.worker_thread = QThread()
+
+        # self.right_traffic_light.set
+
+        self.worker.moveToThread(self.worker_thread)
+        self.worker_thread.start()
+
+    def update_all(self, state: TrafficState) -> None:
+        self.right_traffic_light.update_state(state)
+        self.left_traffic_light.update_state(state)
+        self.top_traffic_light.update_state(state)
+        self.bottom_traffic_light.update_state(state)
 
 
 app = QApplication([])

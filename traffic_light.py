@@ -2,7 +2,7 @@ from enum import IntEnum
 from typing import Optional
 from traffic_state import TrafficState
 
-from PyQt6.QtCore import QSize, Qt
+from PyQt6.QtCore import QSize, Qt, pyqtSlot, pyqtSignal
 from PyQt6.QtGui import QColor
 from PyQt6.QtWidgets import QLabel, QVBoxLayout, QWidget
 
@@ -67,6 +67,9 @@ class TrafficLightState(IntEnum):
 
 
 class TrafficLight(QWidget):
+
+    signal = pyqtSignal(TrafficState)
+
     def __init__(self, traffic_light_direction: TrafficLightDirection,
                  parent: Optional[QWidget] = None) -> None:
         super().__init__(parent)
@@ -90,8 +93,13 @@ class TrafficLight(QWidget):
         self.setFixedSize(QSize(200, 200))
 
         self.direction = traffic_light_direction
-
         self.state = TrafficLightState.RED
+
+        self.red_circle = red_circle
+        self.yellow_circle = yellow_circle
+        self.green_circle = green_circle
+
+        self.signal.connect(self.update_state)
 
     def next_state(self) -> None:
         if self.state == TrafficLightState.RED:
@@ -104,7 +112,31 @@ class TrafficLight(QWidget):
     def start_cycle(self) -> None:
         pass
 
-    def update(self, state: TrafficState) -> None:
+    def set_lights(self, state: TrafficLightState) -> None:
+        match state:
+            case TrafficLightState.RED:
+                self.red_circle.set_red()
+                self.yellow_circle.set_black()
+                self.green_circle.set_black()
+            case TrafficLightState.YELLOW:
+                self.red_circle.set_black()
+                self.yellow_circle.set_yellow()
+                self.green_circle.set_black()
+            case TrafficLightState.GREEN:
+                self.red_circle.set_black()
+                self.yellow_circle.set_black()
+                self.green_circle.set_green()
+
+    # def set_lights_with_direction(self, state: TrafficState) -> None:
+    #     if self.direction is TrafficLightDirection.NORTH_SOUTH
+    @pyqtSlot(TrafficState)
+    def update_state(self, state: TrafficState) -> None:
+        print(state)
+        self.green_circle.set_green()
         # match state:
         #     case TrafficState.NORTH_SOUTH_LEFT:
-        pass
+        #         if self.direction is TrafficLightDirection.NORTH_SOUTH:
+        #             self.set_lights(TrafficLightState.GREEN)
+        #         else:
+        #             self.set_lights(TrafficLightState.RED)
+
