@@ -19,12 +19,15 @@ class BackgroundThread(QThread):
         while True:
             self.current_state.emit(self.state)
             self.next_state()
-            # green 4 sec, yellow 1 sec, red 1 sec
+            # green 5 sec, yellow 2 sec, red 1 sec
             if self.state % 3 == 0:
-                time.sleep(2)
+                # Red duration
+                time.sleep(1)
             elif self.state % 3 == 1:
-                time.sleep(4)
+                # Green duration
+                time.sleep(5)
             else:
+                # Yellow duration
                 time.sleep(2)
 
     def next_state(self) -> None:
