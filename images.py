@@ -1,10 +1,9 @@
-import time
+from enum import IntEnum
 
 from PyQt6.QtGui import QPixmap, QTransform
-from PyQt6.QtWidgets import QWidget, QLabel
+from PyQt6.QtWidgets import QLabel, QWidget
 
 from traffic_state import TrafficState
-from enum import IntEnum
 
 
 class ImageLabel(QLabel):
