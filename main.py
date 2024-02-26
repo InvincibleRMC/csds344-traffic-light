@@ -21,11 +21,11 @@ class BackgroundThread(QThread):
             self.next_state()
             # green 4 sec, yellow 1 sec, red 1 sec
             if self.state % 3 == 0:
-                time.sleep(4)
+                time.sleep(2)
             elif self.state % 3 == 1:
-                time.sleep(1.5)
+                time.sleep(4)
             else:
-                time.sleep(0.5)
+                time.sleep(2)
 
     def next_state(self) -> None:
         self.state = (self.state + 1) % 18
