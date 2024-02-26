@@ -114,6 +114,8 @@ class ArrowsManager:
                 ImageLabel("assets/arrows/pedestrian.png", parent=window, rot=180)
             ],
             ArrowState.EAST_WEST_RIGHT: [
+                ImageLabel("assets/arrows/car_straight.png", parent=window, rot=90),
+                ImageLabel("assets/arrows/car_straight.png", parent=window, rot=270),
                 ImageLabel("assets/arrows/car_right.png", parent=window, rot=90),
                 ImageLabel("assets/arrows/car_right.png", parent=window, rot=270)
             ],
@@ -128,6 +130,8 @@ class ArrowsManager:
                 ImageLabel("assets/arrows/pedestrian.png", parent=window, rot=270)
             ],
             ArrowState.NORTH_SOUTH_RIGHT: [
+                ImageLabel("assets/arrows/car_straight.png", parent=window, rot=0),
+                ImageLabel("assets/arrows/car_straight.png", parent=window, rot=180),
                 ImageLabel("assets/arrows/car_right.png", parent=window, rot=0),
                 ImageLabel("assets/arrows/car_right.png", parent=window, rot=180)
             ],
