@@ -1,10 +1,10 @@
 import time
-import typing as t
 
 from PyQt6.QtGui import QPixmap, QTransform
 from PyQt6.QtWidgets import QWidget, QLabel
 
 from traffic_state import TrafficState
+from enum import IntEnum
 
 
 class ImageLabel(QLabel):
@@ -88,45 +88,58 @@ class LightManager:
         # time.sleep(2)
         # print("Red")
         # for light in self.traffic_lights:
-        #     light.update_red()
+        #
+        #      light.update_red()
+
+
+class ArrowState(IntEnum):
+    NORTH_SOUTH_LEFT = 0
+    NORTH_SOUTH_STRAIGHT = 1
+    NORTH_SOUTH_RIGHT = 2
+    EAST_WEST_LEFT = 3
+    EAST_WEST_STRAIGHT = 4
+    EAST_WEST_RIGHT = 5
+
 
 class ArrowsManager:
     def __init__(self, window: QWidget):
         self.state_arrows = {
-            TrafficState.EAST_WEST_LEFT: [
+            ArrowState.EAST_WEST_LEFT: [
                 ImageLabel("assets/arrows/car_left.png", parent=window, rot=90),
                 ImageLabel("assets/arrows/car_left.png", parent=window, rot=270)
             ],
-            TrafficState.EAST_WEST_STRAIGHT: [
+            ArrowState.EAST_WEST_STRAIGHT: [
                 ImageLabel("assets/arrows/car_straight.png", parent=window, rot=90),
                 ImageLabel("assets/arrows/car_straight.png", parent=window, rot=270),
                 ImageLabel("assets/arrows/pedestrian.png", parent=window, rot=0),
                 ImageLabel("assets/arrows/pedestrian.png", parent=window, rot=180)
             ],
-            TrafficState.EAST_WEST_RIGHT: [
+            ArrowState.EAST_WEST_RIGHT: [
                 ImageLabel("assets/arrows/car_right.png", parent=window, rot=90),
                 ImageLabel("assets/arrows/car_right.png", parent=window, rot=270)
             ],
-            TrafficState.NORTH_SOUTH_LEFT: [
+            ArrowState.NORTH_SOUTH_LEFT: [
                 ImageLabel("assets/arrows/car_left.png", parent=window, rot=0),
                 ImageLabel("assets/arrows/car_left.png", parent=window, rot=180)
             ],
-            TrafficState.NORTH_SOUTH_STRAIGHT: [
+            ArrowState.NORTH_SOUTH_STRAIGHT: [
                 ImageLabel("assets/arrows/car_straight.png", parent=window, rot=0),
                 ImageLabel("assets/arrows/car_straight.png", parent=window, rot=180),
                 ImageLabel("assets/arrows/pedestrian.png", parent=window, rot=90),
                 ImageLabel("assets/arrows/pedestrian.png", parent=window, rot=270)
             ],
-            TrafficState.NORTH_SOUTH_RIGHT: [
+            ArrowState.NORTH_SOUTH_RIGHT: [
                 ImageLabel("assets/arrows/car_right.png", parent=window, rot=0),
                 ImageLabel("assets/arrows/car_right.png", parent=window, rot=180)
             ],
         }
 
     def update_state(self, new_state: TrafficState) -> None:
+
+        arrow_state = ArrowState(int(new_state / 3))
         for state, arrow_list in self.state_arrows.items():
             for arrow in arrow_list:
-                if state == new_state:
+                if state == arrow_state:
                     arrow.show()
                 else:
                     arrow.hide()
