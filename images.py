@@ -54,8 +54,7 @@ class TrafficLight:
             self.set_image(self.red)
 
     def update_yellow(self, state: TrafficState):
-        if state in (self.straight_state, self.left_state, self.right_state):
-            # TODO isn't this always true?
+        if state in [*self.straight_state, *self.left_state, *self.right_state]:
             self.set_image(self.yellow)
         else:
             self.set_image(self.red)
@@ -91,17 +90,6 @@ class LightManager:
                 light.update_yellow(new_state)
             else:
                 light.update_red()
-
-        # time.sleep(3)
-        # print("Yellow")
-        # for light in self.traffic_lights:
-        #     light.update_yellow(new_state)
-        #
-        # time.sleep(2)
-        # print("Red")
-        # for light in self.traffic_lights:
-        #
-        #      light.update_red()
 
 
 class ArrowState(IntEnum):
