@@ -82,7 +82,6 @@ class LightManager:
         ]
 
     def update_state(self, new_state: TrafficState) -> None:
-        print(new_state)
         for light in self.traffic_lights:
             if new_state in GREEN_STATE:
                 light.update_green(new_state)
