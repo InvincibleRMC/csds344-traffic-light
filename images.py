@@ -135,8 +135,10 @@ class ArrowsManager:
         }
 
     def update_state(self, new_state: TrafficState) -> None:
-
-        arrow_state = ArrowState(int(new_state / 3))
+        if new_state % 3 == 2:
+            arrow_state = None
+        else:
+            arrow_state = ArrowState(int(new_state / 3))
         for state, arrow_list in self.state_arrows.items():
             for arrow in arrow_list:
                 if state == arrow_state:
