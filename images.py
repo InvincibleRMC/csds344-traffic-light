@@ -35,14 +35,14 @@ class TrafficLight:
             self.left_state = [TrafficState.EAST_WEST_LEFT_GREEN, TrafficState.EAST_WEST_LEFT_YELLOW, TrafficState.EAST_WEST_LEFT_RED]
             self.right_state = [TrafficState.EAST_WEST_RIGHT_GREEN, TrafficState.EAST_WEST_RIGHT_YELLOW, TrafficState.EAST_WEST_RIGHT_RED]
 
-    def set_image(self, image: ImageLabel):
+    def set_image(self, image: ImageLabel) -> None:
         for img in self.all_images:
             if img == image:
                 img.show()
             else:
                 img.hide()
 
-    def update_green(self, state: TrafficState):
+    def update_green(self, state: TrafficState) -> None:
         if state in self.straight_state:
             self.set_image(self.green)
         elif state in self.left_state:
@@ -52,13 +52,13 @@ class TrafficLight:
         else:
             self.set_image(self.red)
 
-    def update_yellow(self, state: TrafficState):
+    def update_yellow(self, state: TrafficState) -> None:
         if state in [*self.straight_state, *self.left_state, *self.right_state]:
             self.set_image(self.yellow)
         else:
             self.set_image(self.red)
 
-    def update_red(self):
+    def update_red(self) -> None:
         self.set_image(self.red)
 
 

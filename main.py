@@ -37,7 +37,7 @@ class BackgroundThread(QThread):
 class Window(QMainWindow):
     start = pyqtSignal()
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
         self.setWindowTitle("CSDS 344 Traffic Simulation")
