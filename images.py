@@ -44,23 +44,31 @@ class TrafficLight:
                 img.hide()
 
     def update_green(self, state: TrafficState):
-        if state == self.straight_state:
+        if state in self.straight_state:
             self.set_image(self.green)
-        elif state == self.left_state:
+        elif state in self.left_state:
             self.set_image(self.green_left)
-        elif state == self.right_state:
+        elif state in self.right_state:
             self.set_image(self.green_right)
         else:
             self.set_image(self.red)
 
     def update_yellow(self, state: TrafficState):
         if state in (self.straight_state, self.left_state, self.right_state):
+            # TODO isn't this always true?
             self.set_image(self.yellow)
         else:
             self.set_image(self.red)
 
     def update_red(self):
         self.set_image(self.red)
+
+
+GREEN_STATE = [TrafficState.EAST_WEST_LEFT_GREEN, TrafficState.EAST_WEST_STRAIGHT_GREEN, TrafficState.EAST_WEST_RIGHT_GREEN,
+               TrafficState.NORTH_SOUTH_LEFT_GREEN, TrafficState.NORTH_SOUTH_STRAIGHT_GREEN, TrafficState.NORTH_SOUTH_RIGHT_GREEN]
+
+YELLOW_STATE = [TrafficState.EAST_WEST_LEFT_YELLOW, TrafficState.EAST_WEST_STRAIGHT_YELLOW, TrafficState.EAST_WEST_RIGHT_YELLOW,
+                TrafficState.NORTH_SOUTH_LEFT_YELLOW, TrafficState.NORTH_SOUTH_STRAIGHT_YELLOW, TrafficState.NORTH_SOUTH_RIGHT_YELLOW]
 
 
 class LightManager:
@@ -76,9 +84,13 @@ class LightManager:
 
     def update_state(self, new_state: TrafficState) -> None:
         print(new_state)
-        print("Green")
         for light in self.traffic_lights:
-            light.update_green(new_state)
+            if new_state in GREEN_STATE:
+                light.update_green(new_state)
+            elif new_state in YELLOW_STATE:
+                light.update_yellow(new_state)
+            else:
+                light.update_red()
 
         # time.sleep(3)
         # print("Yellow")
