@@ -48,7 +48,8 @@ class Window(QMainWindow):
         self.custom_thread.current_state.connect(self.update_all)
         self.custom_thread.start()
 
-    def update_all(self, state: TrafficState) -> None:
+    def update_all(self, state: int) -> None:
+        state = TrafficState(state)
         self.arrows.update_state(state)
         self.lights.update_state(state)
 
